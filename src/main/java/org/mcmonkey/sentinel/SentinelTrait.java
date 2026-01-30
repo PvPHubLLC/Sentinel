@@ -45,7 +45,6 @@ import org.mcmonkey.sentinel.targeting.SentinelTargetLabel;
 import org.mcmonkey.sentinel.targeting.SentinelTargetList;
 import org.mcmonkey.sentinel.targeting.SentinelTargetingHelper;
 import org.mcmonkey.sentinel.utilities.SentinelAPIBreakageFix;
-import org.mcmonkey.sentinel.utilities.SentinelNMSHelper;
 import org.mcmonkey.sentinel.utilities.SentinelVersionCompat;
 
 import java.util.*;
@@ -1169,7 +1168,9 @@ public class SentinelTrait extends Trait {
             PlayerAnimation.ARM_SWING.play((Player) getLivingEntity());
         }
         else if (getLivingEntity() instanceof IronGolem) {
-            SentinelNMSHelper.animateIronGolemSwing((IronGolem) getLivingEntity());
+            IronGolem golem = (IronGolem) getLivingEntity();
+            golem.swingMainHand();
+            golem.swingOffHand();
         }
         else if (SentinelVersionCompat.v1_15) {
             getLivingEntity().swingMainHand();
@@ -1379,7 +1380,8 @@ public class SentinelTrait extends Trait {
             NMS.setPeekShulker(getLivingEntity(), 100);
         }
         else if (getLivingEntity().getType() == EntityType.ENDERMAN) {
-            SentinelNMSHelper.setEndermanAngry((Enderman) getLivingEntity(), true);
+            Enderman enderman = (Enderman) getLivingEntity();
+            enderman.setHasBeenStaredAt(true);
         }
         visionMarked = true;
     }
@@ -1397,7 +1399,8 @@ public class SentinelTrait extends Trait {
             NMS.setPeekShulker(getLivingEntity(), 0);
         }
         else if (getLivingEntity().getType() == EntityType.ENDERMAN) {
-            SentinelNMSHelper.setEndermanAngry((Enderman) getLivingEntity(), false);
+            Enderman enderman = (Enderman) getLivingEntity();
+            enderman.setHasBeenStaredAt(false);
         }
         if (autoswitch) {
             itemHelper.swapToOpenHand();

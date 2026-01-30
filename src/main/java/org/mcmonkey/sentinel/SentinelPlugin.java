@@ -469,7 +469,6 @@ public class SentinelPlugin extends JavaPlugin {
             }
         }.runTaskTimer(this, 1, 1);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, VelocityTracker::runAll, 20, 20);
-        SentinelNMSHelper.init();
         getLogger().info("Sentinel loaded!");
     }
 
